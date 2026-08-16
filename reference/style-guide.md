@@ -126,3 +126,7 @@ Reference: `WPoKkr_WED8.jpg`
 | `IMG_9475.png` | Beginner explainer, highlighted phrase, icons, progression arrow |
 | `IMG_4060.png` | Big left-aligned hook, one red highlight box, full-body subject |
 | `IMG_0379.png` | Outdoor portrait with a bold top-line opinion |
+| `NsR3rkuLNNs.jpg` | Oversized editorial serif, warm muted scene, and subject-over-text depth |
+| `1X2tOUBfo8E.jpg` | Quiet seasonal backdrop with an elegant left-headline/right-portrait split |
+| `ZuiqHa3i5oc.jpg` | Split proof composition, curved centered headline, and neutral palette |
+| `Mgc6JxAn7WM.jpg` | Headline behind a centered presenter with restrained supporting product cutouts |

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kiki Thumbnail"
+  short_description: "Create high-impact YouTube thumbnails"
+  default_prompt: "Use $kiki-thumbnail to create a polished YouTube thumbnail from my video idea and presenter photo."

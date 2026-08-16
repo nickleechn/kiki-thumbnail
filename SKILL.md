@@ -7,6 +7,14 @@ description: "Create polished, high-impact thumbnail pairs in the Kiki reference
 
 Create a platform-ready thumbnail pair that communicates one idea at a glance. Use the bundled references for visual direction, the built-in `image_gen` tool for the scene, and `scripts/process_variants.py` for exact headline text and deterministic sizing.
 
+## Skill summary
+
+- Turn a video title, script, concept, or presenter photo into one coordinated thumbnail pair.
+- Use one dominant focal group, a lean attention-grabbing hook, a muted minimalist palette, and restrained visual emphasis.
+- Preserve presenter identity, complete heads, natural gestures, and every meaningful object a subject points at, holds, presents, or looks toward.
+- Generate loose base art, then add exact typography and crop deterministically with the bundled fonts and Python processor.
+- Deliver YouTube at 1280×720 and Rednote at 1080×1440, inspecting each output independently for legibility and crop safety.
+
 ## Workflow
 
 1. Gather the minimum inputs.

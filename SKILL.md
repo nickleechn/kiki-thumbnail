@@ -13,7 +13,7 @@ Create a platform-ready thumbnail pair that communicates one idea at a glance. U
    - Require a video idea, title, or short summary.
    - Treat headline copy, brand colors, presenter photos, and must-use objects as optional.
    - If the thumbnail must depict a specific person and no usable photo is supplied, ask for one. Otherwise proceed with a suitable generic subject.
-2. Read `reference/style-guide.md` and inspect 1–3 relevant images in `reference/` with `view_image`.
+2. Read `reference/style-guide.md` and `reference/colour-palettes.md`, then inspect 1–3 relevant images in `reference/` with `view_image`.
    - Choose references by composition, not by the identity of their subjects.
    - Never copy a reference pixel-for-pixel or reuse its people, logos, characters, or headline.
 3. Define one visual promise.
@@ -23,7 +23,7 @@ Create a platform-ready thumbnail pair that communicates one idea at a glance. U
    - Keep the promise truthful to the video.
 4. Pick one layout recipe from `reference/style-guide.md`.
    - Use one dominant subject or object.
-   - Use a minimal background: one calm base color or two closely related tones, with one optional accent color.
+   - Select one named palette from `reference/colour-palettes.md`. Use one calm base, one dark ink, and one optional muted accent.
    - Prefer a solid neutral, a very soft tonal gradient, or a heavily muted contextual environment. Keep background detail and contrast low.
    - Reserve a clean text zone and keep the lower-right corner visually quiet for YouTube's duration badge.
    - Prefer a depth overlap when a presenter is prominent: let a shoulder, arm, hand, or edge of the hair sit in front of part of the headline while the text stays readable.
@@ -65,7 +65,7 @@ Style/medium: polished photorealistic editorial thumbnail
 Composition/framing: square or near-square master safe for both 16:9 landscape and 3:4 portrait crops; essential subject and gesture inside central 45%; entire head, hair outline, ears, and chin visible; at least 8% master-height breathing room above the hair; generous background on every side; clean negative space around the subject; bold silhouette; allow a shoulder, hand, or hair edge to overlap the future headline zone
 Lighting/mood: bright subject separation, believable skin and material texture
 Background color: one calm neutral base or two closely related tones; optional single accent only
-Color palette: maximum two related base colors plus one accent color
+Color palette: <named palette from reference/colour-palettes.md; one light base, one dark ink, one optional muted accent>
 Constraints: no text, letters, captions, logos, watermark, border, or duration badge; do not reproduce reference identities or copyrighted characters; keep anatomy natural
 Avoid: busy or multicolor backgrounds, rainbow gradients, repeated patterns, decorative clutter, tiny props, generic stock-photo staging, exaggerated HDR, excessive glow
 ```

@@ -78,6 +78,7 @@ Reference: `WPoKkr_WED8.jpg`
 
 ## Background color rules
 
+- Select a named palette from `colour-palettes.md` and keep its assigned base, ink, and optional accent roles.
 - Start with one restrained base: off-white, light gray, warm beige, muted pastel, deep navy, or charcoal.
 - Use no more than two closely related base tones and one optional accent color across the thumbnail.
 - A solid field or very soft tonal gradient is the default. Never use rainbow gradients, busy patterns, or multiple unrelated bright color blocks.

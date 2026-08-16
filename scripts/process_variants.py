@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministically produce YouTube 16:9 and Rednote 4:3 thumbnails."""
+"""Deterministically produce YouTube 16:9 and Rednote portrait 3:4 thumbnails."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ except ImportError as exc:
 LAYOUTS = ("left", "right", "top", "bottom", "center")
 EXPECTED_SIZES = {
     "youtube": (1280, 720),
-    "rednote": (1200, 900),
+    "rednote": (1080, 1440),
 }
 
 
@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Create two exact-size thumbnails from one base image: "
-            "YouTube 1280x720 and Rednote 1200x900."
+            "YouTube 1280x720 and Rednote portrait 1080x1440."
         )
     )
     parser.add_argument("--input", required=True, type=Path, help="Generated master image")
@@ -37,7 +37,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--text", required=True, help="YouTube headline")
     parser.add_argument("--rednote-text", help="Optional Rednote headline; defaults to --text")
     parser.add_argument("--layout", choices=LAYOUTS, default="left", help="Default text layout")
-    parser.add_argument("--rednote-layout", choices=LAYOUTS, help="Optional 4:3 text layout override")
+    parser.add_argument(
+        "--rednote-layout",
+        choices=LAYOUTS,
+        default="top",
+        help="Portrait 3:4 text layout; defaults to top",
+    )
     parser.add_argument(
         "--align",
         choices=("auto", "left", "center", "right"),
@@ -169,7 +174,7 @@ def main() -> int:
 
     print("Created thumbnail pair:")
     print(f"  YouTube 16:9: {outputs['youtube']}")
-    print(f"  Rednote 4:3:  {outputs['rednote']}")
+    print(f"  Rednote 3:4:  {outputs['rednote']}")
     return 0
 
 

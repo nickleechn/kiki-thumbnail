@@ -75,10 +75,10 @@ Reference: `WPoKkr_WED8.jpg`
 ## Platform pair and finish
 
 - YouTube canvas: 1280×720, 16:9.
-- Rednote canvas: 1200×900, 4:3.
-- Generate one loose landscape master, then crop and typeset each platform deterministically with `scripts/process_variants.py`.
-- Keep faces, hands, hero objects, and gestures inside the master image's central 70% so neither crop loses the idea.
-- Allow a different headline position or crop focus for the Rednote version; do not stretch or letterbox the image.
+- Rednote canvas: 1080×1440, portrait 3:4.
+- Generate one loose square or near-square master, then crop and typeset each platform deterministically with `scripts/process_variants.py`.
+- Keep faces, hands, hero objects, and gestures inside the master image's central 45% with usable background on every side so the landscape and portrait crops preserve the idea.
+- Default the Rednote headline to the top region. Allow a different headline, position, or crop focus for the portrait version; do not stretch or letterbox the image.
 - Edge safety: 48 px minimum.
 - Subject size: face or hero object should usually occupy 30–55% of the frame.
 - Text zone: usually 38–52% of the canvas width.

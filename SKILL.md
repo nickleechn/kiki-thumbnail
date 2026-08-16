@@ -1,6 +1,6 @@
 ---
 name: kiki-thumbnail
-description: "Create polished, high-impact thumbnail pairs in the Kiki reference style: a dominant human or object, short curiosity-driven headline, strong contrast, and restrained arrows or word highlights. Use when Codex needs to design, generate, revise, or export thumbnails for YouTube and Rednote; produce deterministic 16:9 and 4:3 variants from one generated master; turn a video title, script, or concept into thumbnail options; incorporate a presenter photo; or match the visual language in this skill's reference images."
+description: "Create polished, high-impact thumbnail pairs in the Kiki reference style: a dominant human or object, short curiosity-driven headline, strong contrast, and restrained arrows or word highlights. Use when Codex needs to design, generate, revise, or export thumbnails for YouTube and Rednote; produce deterministic 16:9 landscape and 3:4 portrait variants from one generated master; turn a video title, script, or concept into thumbnail options; incorporate a presenter photo; or match the visual language in this skill's reference images."
 ---
 
 # Kiki Thumbnail
@@ -27,13 +27,13 @@ Create a platform-ready thumbnail pair that communicates one idea at a glance. U
 5. Generate the base art with the built-in `image_gen` tool.
    - Classify the request as `ads-marketing` or `photorealistic-natural`.
    - Label every input image by role. Use the presenter photo as an identity reference and the selected thumbnails only as style/composition references.
-   - Ask for one landscape master composition that is safe for both 16:9 and 4:3 crops. Keep the subject, face, hero object, and gesture inside the central 70% of the frame with extra background above and below.
+   - Ask for one square or near-square master composition that is safe for both a 16:9 landscape crop and a 3:4 portrait crop. Keep the subject, face, hero object, and gesture inside the central 45% of the frame with generous background on every side.
    - Request no words, letters, captions, logos, watermarks, borders, or duration badge in the generated base.
    - Keep skin, hands, food, and products believable. Avoid plastic retouching and overstuffed collage layouts.
 6. Add the exact headline and always export both platform variants.
    - Run `scripts/process_variants.py` with the generated base.
-   - Produce YouTube at 1280×720 (16:9) and Rednote at 1200×900 (4:3).
-   - Use separate Rednote crop focus or text layout overrides when the tighter 4:3 frame would clip the subject or headline.
+   - Produce YouTube at 1280×720 (16:9 landscape) and Rednote at 1080×1440 (3:4 portrait).
+   - Use separate Rednote crop focus or text layout overrides when the portrait frame would clip the subject or headline. Default Rednote text to the top region.
    - Use sans-serif type by default. Use serif only for an editorial or warning concept.
    - Highlight no more than one key word unless the user requests otherwise.
 7. Inspect both final images with `view_image`.
@@ -55,7 +55,7 @@ Input images: <Image 1: presenter identity reference; Image 2..N: composition/st
 Scene/backdrop: <simple setting or controlled background>
 Subject: <one dominant person or object, expression/pose/action>
 Style/medium: polished photorealistic editorial thumbnail
-Composition/framing: landscape master safe for both 16:9 and 4:3 crops; essential subject and gesture inside central 70%; clean negative space on <text side>; extra background above and below; bold silhouette; lower-right corner quiet
+Composition/framing: square or near-square master safe for both 16:9 landscape and 3:4 portrait crops; essential subject and gesture inside central 45%; generous background on every side; clean negative space around the subject; bold silhouette
 Lighting/mood: bright subject separation, believable skin and material texture
 Color palette: restrained neutrals plus one accent color
 Constraints: no text, letters, captions, logos, watermark, border, or duration badge; do not reproduce reference identities or copyrighted characters; keep anatomy natural
@@ -84,9 +84,11 @@ This command must create `output/my-video-youtube.png` and `output/my-video-redn
 
 The processor stages and dimension-checks both files before publishing the pair. It refuses to replace existing outputs unless `--overwrite` is supplied.
 
+The renderer automatically selects an available CJK font when a headline contains Chinese, Japanese, or Korean characters. Pass `--font /path/to/font.ttf` only when a specific brand font is required.
+
 ## Output rules
 
-- Always export two files from every generation: YouTube at exactly 1280×720 and Rednote at exactly 1200×900.
+- Always export two files from every generation: YouTube at exactly 1280×720 and Rednote at exactly 1080×1440.
 - Keep essential content at least 48 px from the edges.
 - Treat the two aspect ratios as one thumbnail pair, not as optional creative variants.
 - Do not bake a duration badge into the image; YouTube adds it in the interface.

@@ -18,7 +18,7 @@ except ImportError as exc:
 
 PRESETS = {
     "youtube": (1280, 720),
-    "rednote": (1200, 900),
+    "rednote": (1080, 1440),
 }
 FONT_CANDIDATES = {
     "sans": [
@@ -34,6 +34,19 @@ FONT_CANDIDATES = {
         "/usr/share/fonts/truetype/liberation2/LiberationSerif-Bold.ttf",
     ],
 }
+CJK_FONT_CANDIDATES = {
+    "sans": [
+        "/System/Library/Fonts/STHeiti Medium.ttc",
+        "/System/Library/Fonts/Hiragino Sans GB.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+    ],
+    "serif": [
+        "/System/Library/Fonts/Supplemental/Songti.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSerifCJK-Bold.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc",
+    ],
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -46,7 +59,7 @@ def parse_args() -> argparse.Namespace:
         "--preset",
         choices=tuple(PRESETS),
         default="youtube",
-        help="youtube=1280x720; rednote=1200x900",
+        help="youtube=1280x720; rednote=1080x1440 portrait",
     )
     parser.add_argument("--text", required=True, help="Headline text; use \\n for forced breaks")
     parser.add_argument(
@@ -132,8 +145,29 @@ def add_overlay(image: Image.Image, layout: str, strength: float) -> Image.Image
     return Image.alpha_composite(image, shade)
 
 
-def find_font(style: str, custom: Path | None, size: int) -> ImageFont.FreeTypeFont:
-    candidates = [str(custom)] if custom else FONT_CANDIDATES[style]
+def contains_cjk(text: str) -> bool:
+    ranges = (
+        (0x3040, 0x30FF),
+        (0x3400, 0x4DBF),
+        (0x4E00, 0x9FFF),
+        (0xAC00, 0xD7AF),
+        (0xF900, 0xFAFF),
+    )
+    return any(any(start <= ord(char) <= end for start, end in ranges) for char in text)
+
+
+def find_font(
+    style: str,
+    custom: Path | None,
+    size: int,
+    text: str,
+) -> ImageFont.FreeTypeFont:
+    if custom:
+        candidates = [str(custom)]
+    elif contains_cjk(text):
+        candidates = CJK_FONT_CANDIDATES[style] + FONT_CANDIDATES[style]
+    else:
+        candidates = FONT_CANDIDATES[style]
     for candidate in candidates:
         if candidate and Path(candidate).exists():
             return ImageFont.truetype(candidate, size=size)
@@ -199,7 +233,7 @@ def fit_text(
 ) -> tuple[ImageFont.FreeTypeFont, list[list[str]], int]:
     sizes = [requested_size] if requested_size > 0 else list(range(132, 43, -2))
     for size in sizes:
-        font = find_font(style, custom_font, size)
+        font = find_font(style, custom_font, size, text)
         lines = wrap_text(draw, text, font, max_width)
         bbox = draw.textbbox((0, 0), "Ag", font=font, stroke_width=0)
         line_height = bbox[3] - bbox[1]

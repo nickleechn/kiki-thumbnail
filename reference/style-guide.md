@@ -11,6 +11,7 @@ Use the images beside this file as compositional references. Borrow their visual
 - Make the background color minimalistic: one calm base color or two closely related tones, plus one optional accent.
 - Prefer a solid neutral, soft tonal gradient, or heavily muted contextual environment with strong subject separation.
 - Use white, black, or deep navy type plus one accent color.
+- Prefer a subtle depth overlap: place part of the headline behind a shoulder, arm, hand, or hair edge when the words remain immediately readable.
 - Use only one markup device: an arrow, underline, circle, check, or word box.
 - Keep the lower-right corner low priority because YouTube overlays the duration there.
 - Do not include a duration badge in generated output.
@@ -90,12 +91,21 @@ Reference: `WPoKkr_WED8.jpg`
 - Use one typeface per thumbnail. Create emphasis with scale, placement, or one color highlight rather than mixing families.
 - Treat these bundled files as Latin fonts; let the renderer choose a compatible system font for Chinese, Japanese, or Korean text.
 
+## Subject and text depth
+
+- Use foreground overlap as the default recommendation for human-led thumbnails when it adds depth.
+- Place the text behind a shoulder, arm, hand, or small edge of the hair—not across the eyes or central facial features.
+- Keep every word recognizable at a glance; obscure no more than about 20% of any word's letterforms.
+- Build the effect with an aligned transparent presenter layer and the renderer's `--foreground` option. Do not bake uncertain AI-generated lettering into the scene.
+- Keep the entire head and hair outline visible. Any crop through the top or sides of the head is a failed composition.
+
 ## Platform pair and finish
 
 - YouTube canvas: 1280×720, 16:9.
 - Rednote canvas: 1080×1440, portrait 3:4.
 - Generate one loose square or near-square master, then crop and typeset each platform deterministically with `scripts/process_variants.py`.
 - Keep faces, hands, hero objects, and gestures inside the master image's central 45% with usable background on every side so the landscape and portrait crops preserve the idea.
+- Keep at least 8% of the master height above the person's hair and verify the full head outline independently in both final crops.
 - Default the Rednote headline to the top region. Allow a different headline, position, or crop focus for the portrait version; do not stretch or letterbox the image.
 - Edge safety: 48 px minimum.
 - Subject size: face or hero object should usually occupy 30–55% of the frame.

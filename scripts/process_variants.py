@@ -32,6 +32,11 @@ def parse_args() -> argparse.Namespace:
         )
     )
     parser.add_argument("--input", required=True, type=Path, help="Generated master image")
+    parser.add_argument(
+        "--foreground",
+        type=Path,
+        help="Optional transparent PNG aligned with --input; composited above headline text",
+    )
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--stem", required=True, help="Output filename stem")
     parser.add_argument("--text", required=True, help="YouTube headline")
@@ -126,6 +131,8 @@ def build_command(
     ]
     if args.font:
         command.extend(("--font", str(args.font)))
+    if args.foreground:
+        command.extend(("--foreground", str(args.foreground)))
     for word in args.highlight:
         command.extend(("--highlight", word))
     return command
@@ -135,6 +142,8 @@ def main() -> int:
     args = parse_args()
     if not args.input.is_file():
         raise SystemExit(f"Input image not found: {args.input}")
+    if args.foreground and not args.foreground.is_file():
+        raise SystemExit(f"Foreground image not found: {args.foreground}")
     if not args.stem.strip() or Path(args.stem).name != args.stem:
         raise SystemExit("--stem must be a non-empty filename stem without directories")
     renderer = Path(__file__).with_name("render_thumbnail.py")

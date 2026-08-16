@@ -57,6 +57,11 @@ def parse_args() -> argparse.Namespace:
         description="Create an exact-text thumbnail using a deterministic platform preset."
     )
     parser.add_argument("--input", required=True, type=Path, help="Base image path")
+    parser.add_argument(
+        "--foreground",
+        type=Path,
+        help="Optional transparent PNG aligned with --input; composited above headline text",
+    )
     parser.add_argument("--output", required=True, type=Path, help="PNG or JPEG output path")
     parser.add_argument(
         "--preset",
@@ -331,12 +336,41 @@ def main() -> int:
     canvas = PRESETS[args.preset]
     if not args.input.is_file():
         raise SystemExit(f"Input image not found: {args.input}")
+    if args.foreground and not args.foreground.is_file():
+        raise SystemExit(f"Foreground image not found: {args.foreground}")
     max_margin = min(canvas) // 3 - 1
     if args.margin < 0 or args.margin > max_margin:
         raise SystemExit(f"--margin must be between 0 and {max_margin}")
-    base = cover_crop(Image.open(args.input), canvas, args.focus_x, args.focus_y)
+    with Image.open(args.input) as source:
+        source_size = source.size
+        base = cover_crop(source, canvas, args.focus_x, args.focus_y)
+    foreground = None
+    if args.foreground:
+        with Image.open(args.foreground) as foreground_source:
+            if foreground_source.size != source_size:
+                raise SystemExit(
+                    "--foreground must have the same pixel dimensions as --input "
+                    f"({foreground_source.size} != {source_size})"
+                )
+            if "A" not in foreground_source.getbands():
+                raise SystemExit("--foreground must contain a transparent alpha channel")
+            alpha_histogram = foreground_source.getchannel("A").histogram()
+            transparent_pixels = sum(alpha_histogram[:250])
+            total_pixels = foreground_source.width * foreground_source.height
+            if transparent_pixels < total_pixels * 0.05:
+                raise SystemExit(
+                    "--foreground must be a genuine cutout with at least 5% transparent area"
+                )
+            foreground = cover_crop(
+                foreground_source,
+                canvas,
+                args.focus_x,
+                args.focus_y,
+            )
     base = add_overlay(base, args.layout, args.overlay)
     draw_headline(base, args)
+    if foreground is not None:
+        base = Image.alpha_composite(base, foreground)
     save_image(base, args.output, args.quality)
     print(f"Wrote {args.output} ({canvas[0]}x{canvas[1]}, {args.preset})")
     return 0

@@ -1,11 +1,11 @@
 ---
 name: kiki-thumbnail
-description: "Create polished, high-impact YouTube thumbnails in the Kiki reference style: a dominant human or object, short curiosity-driven headline, clean 16:9 composition, strong contrast, and restrained arrows or word highlights. Use when Codex needs to design, generate, revise, or export a YouTube thumbnail; turn a video title, script, or concept into thumbnail options; incorporate a presenter photo; or match the visual language in this skill's reference images."
+description: "Create polished, high-impact thumbnail pairs in the Kiki reference style: a dominant human or object, short curiosity-driven headline, strong contrast, and restrained arrows or word highlights. Use when Codex needs to design, generate, revise, or export thumbnails for YouTube and Rednote; produce deterministic 16:9 and 4:3 variants from one generated master; turn a video title, script, or concept into thumbnail options; incorporate a presenter photo; or match the visual language in this skill's reference images."
 ---
 
 # Kiki Thumbnail
 
-Create a YouTube-ready thumbnail that communicates one idea at a glance. Use the bundled references for visual direction, the built-in `image_gen` tool for the scene, and `scripts/render_thumbnail.py` for exact headline text and final sizing.
+Create a platform-ready thumbnail pair that communicates one idea at a glance. Use the bundled references for visual direction, the built-in `image_gen` tool for the scene, and `scripts/process_variants.py` for exact headline text and deterministic sizing.
 
 ## Workflow
 
@@ -27,19 +27,21 @@ Create a YouTube-ready thumbnail that communicates one idea at a glance. Use the
 5. Generate the base art with the built-in `image_gen` tool.
    - Classify the request as `ads-marketing` or `photorealistic-natural`.
    - Label every input image by role. Use the presenter photo as an identity reference and the selected thumbnails only as style/composition references.
-   - Ask for a 16:9 YouTube-thumbnail base with deliberate negative space for the headline.
+   - Ask for one landscape master composition that is safe for both 16:9 and 4:3 crops. Keep the subject, face, hero object, and gesture inside the central 70% of the frame with extra background above and below.
    - Request no words, letters, captions, logos, watermarks, borders, or duration badge in the generated base.
    - Keep skin, hands, food, and products believable. Avoid plastic retouching and overstuffed collage layouts.
-6. Add the exact headline and export at 1280×720.
-   - Run `scripts/render_thumbnail.py` with the generated base.
+6. Add the exact headline and always export both platform variants.
+   - Run `scripts/process_variants.py` with the generated base.
+   - Produce YouTube at 1280×720 (16:9) and Rednote at 1200×900 (4:3).
+   - Use separate Rednote crop focus or text layout overrides when the tighter 4:3 frame would clip the subject or headline.
    - Use sans-serif type by default. Use serif only for an editorial or warning concept.
    - Highlight no more than one key word unless the user requests otherwise.
-7. Inspect the final image with `view_image`.
+7. Inspect both final images with `view_image`.
    - Check spelling verbatim.
    - Check legibility at roughly 10% scale.
    - Confirm one clear focal point, adequate contrast, unclipped faces/text, and an unobstructed lower-right corner.
    - Make one targeted revision at a time.
-8. Deliver the final workspace path, the final image-generation prompt, and the exact headline.
+8. Deliver both final workspace paths, the final image-generation prompt, and the exact headline or platform-specific headlines.
 
 ## Image-generation prompt
 
@@ -47,40 +49,45 @@ Use this structure and omit unused lines:
 
 ```text
 Use case: ads-marketing
-Asset type: YouTube thumbnail base image
+Asset type: cross-platform thumbnail master image
 Primary request: <single visual idea tied to the video>
 Input images: <Image 1: presenter identity reference; Image 2..N: composition/style references>
 Scene/backdrop: <simple setting or controlled background>
 Subject: <one dominant person or object, expression/pose/action>
 Style/medium: polished photorealistic editorial thumbnail
-Composition/framing: 16:9; <subject placement>; clean negative space on <text side>; bold silhouette; lower-right corner quiet
+Composition/framing: landscape master safe for both 16:9 and 4:3 crops; essential subject and gesture inside central 70%; clean negative space on <text side>; extra background above and below; bold silhouette; lower-right corner quiet
 Lighting/mood: bright subject separation, believable skin and material texture
 Color palette: restrained neutrals plus one accent color
 Constraints: no text, letters, captions, logos, watermark, border, or duration badge; do not reproduce reference identities or copyrighted characters; keep anatomy natural
 Avoid: clutter, tiny props, generic stock-photo staging, exaggerated HDR, excessive glow
 ```
 
-## Exact-text renderer
+## Deterministic two-variant processor
 
 Use the bundled Python runtime when available; any Python with Pillow 10+ also works.
 
 ```bash
-python3 scripts/render_thumbnail.py \
+python3 scripts/process_variants.py \
   --input output/base.png \
-  --output output/thumbnail.png \
+  --output-dir output \
+  --stem my-video \
   --text "I WISH I STARTED SOONER" \
   --layout left \
+  --rednote-layout top \
   --highlight SOONER \
   --highlight-color "#F20D0D" \
-  --focus-x 0.72
+  --focus-x 0.72 \
+  --rednote-focus-x 0.66
 ```
 
-Use `--font-style serif` for the editorial-warning recipe. Use `--overlay 0` only when the base already provides strong text contrast. Run `python3 scripts/render_thumbnail.py --help` for all options.
+This command must create `output/my-video-youtube.png` and `output/my-video-rednote.png`. Use `--rednote-text` when Rednote needs a different hook. Use `--font-style serif` for the editorial-warning recipe. Use `--overlay 0` only when the base already provides strong text contrast. Run `python3 scripts/process_variants.py --help` for all options. Use `scripts/render_thumbnail.py --preset <youtube|rednote>` only for targeted single-output revisions.
+
+The processor stages and dimension-checks both files before publishing the pair. It refuses to replace existing outputs unless `--overwrite` is supplied.
 
 ## Output rules
 
-- Export exactly 1280×720 in PNG or high-quality JPEG.
+- Always export two files from every generation: YouTube at exactly 1280×720 and Rednote at exactly 1200×900.
 - Keep essential content at least 48 px from the edges.
-- Default to one final thumbnail. Generate separate variants only when requested or when testing meaningfully different hooks.
+- Treat the two aspect ratios as one thumbnail pair, not as optional creative variants.
 - Do not bake a duration badge into the image; YouTube adds it in the interface.
 - Preserve a supplied person's identity. Do not fabricate or imitate a real person who was not provided for the thumbnail.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Crop a base image to 1280x720 and render exact YouTube-thumbnail text."""
+"""Crop a base image to a platform preset and render exact thumbnail text."""
 
 from __future__ import annotations
 
@@ -16,7 +16,10 @@ except ImportError as exc:
     ) from exc
 
 
-CANVAS = (1280, 720)
+PRESETS = {
+    "youtube": (1280, 720),
+    "rednote": (1200, 900),
+}
 FONT_CANDIDATES = {
     "sans": [
         "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
@@ -35,10 +38,16 @@ FONT_CANDIDATES = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Create an exact-text 1280x720 YouTube thumbnail from a base image."
+        description="Create an exact-text thumbnail using a deterministic platform preset."
     )
     parser.add_argument("--input", required=True, type=Path, help="Base image path")
     parser.add_argument("--output", required=True, type=Path, help="PNG or JPEG output path")
+    parser.add_argument(
+        "--preset",
+        choices=tuple(PRESETS),
+        default="youtube",
+        help="youtube=1280x720; rednote=1200x900",
+    )
     parser.add_argument("--text", required=True, help="Headline text; use \\n for forced breaks")
     parser.add_argument(
         "--layout",
@@ -78,8 +87,13 @@ def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
 
 
-def cover_crop(image: Image.Image, focus_x: float, focus_y: float) -> Image.Image:
-    target_w, target_h = CANVAS
+def cover_crop(
+    image: Image.Image,
+    canvas: tuple[int, int],
+    focus_x: float,
+    focus_y: float,
+) -> Image.Image:
+    target_w, target_h = canvas
     scale = max(target_w / image.width, target_h / image.height)
     resized = image.resize(
         (round(image.width * scale), round(image.height * scale)),
@@ -155,8 +169,12 @@ def wrap_text(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont
     return lines
 
 
-def text_region(layout: str, margin: int) -> tuple[int, int, int, int]:
-    width, height = CANVAS
+def text_region(
+    layout: str,
+    margin: int,
+    canvas: tuple[int, int],
+) -> tuple[int, int, int, int]:
+    width, height = canvas
     if layout == "left":
         return margin, margin, round(width * 0.48) - margin, height - 2 * margin
     if layout == "right":
@@ -194,7 +212,11 @@ def fit_text(
 
 def draw_headline(image: Image.Image, args: argparse.Namespace) -> None:
     draw = ImageDraw.Draw(image)
-    region_x, region_y, region_w, region_h = text_region(args.layout, args.margin)
+    region_x, region_y, region_w, region_h = text_region(
+        args.layout,
+        args.margin,
+        image.size,
+    )
     font, lines, line_gap = fit_text(
         draw,
         args.text,
@@ -269,15 +291,17 @@ def save_image(image: Image.Image, output: Path, quality: int) -> None:
 
 def main() -> int:
     args = parse_args()
+    canvas = PRESETS[args.preset]
     if not args.input.is_file():
         raise SystemExit(f"Input image not found: {args.input}")
-    if args.margin < 0 or args.margin >= min(CANVAS) // 3:
-        raise SystemExit("--margin must be between 0 and 239")
-    base = cover_crop(Image.open(args.input), args.focus_x, args.focus_y)
+    max_margin = min(canvas) // 3 - 1
+    if args.margin < 0 or args.margin > max_margin:
+        raise SystemExit(f"--margin must be between 0 and {max_margin}")
+    base = cover_crop(Image.open(args.input), canvas, args.focus_x, args.focus_y)
     base = add_overlay(base, args.layout, args.overlay)
     draw_headline(base, args)
     save_image(base, args.output, args.quality)
-    print(f"Wrote {args.output} ({CANVAS[0]}x{CANVAS[1]})")
+    print(f"Wrote {args.output} ({canvas[0]}x{canvas[1]}, {args.preset})")
     return 0
 
 

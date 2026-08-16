@@ -72,9 +72,13 @@ Reference: `WPoKkr_WED8.jpg`
 - Keep punctuation minimal. One period can make an opinion feel deliberate.
 - Render text after image generation so spelling stays exact.
 
-## Composition and finish
+## Platform pair and finish
 
-- Canvas: 1280×720, 16:9.
+- YouTube canvas: 1280×720, 16:9.
+- Rednote canvas: 1200×900, 4:3.
+- Generate one loose landscape master, then crop and typeset each platform deterministically with `scripts/process_variants.py`.
+- Keep faces, hands, hero objects, and gestures inside the master image's central 70% so neither crop loses the idea.
+- Allow a different headline position or crop focus for the Rednote version; do not stretch or letterbox the image.
 - Edge safety: 48 px minimum.
 - Subject size: face or hero object should usually occupy 30–55% of the frame.
 - Text zone: usually 38–52% of the canvas width.

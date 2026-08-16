@@ -1,4 +1,4 @@
 interface:
   display_name: "Kiki Thumbnail"
-  short_description: "Create high-impact YouTube thumbnails"
-  default_prompt: "Use $kiki-thumbnail to create a polished YouTube thumbnail from my video idea and presenter photo."
+  short_description: "Create YouTube and Rednote thumbnail pairs"
+  default_prompt: "Use $kiki-thumbnail to create matching YouTube and Rednote thumbnails from my video idea and presenter photo."

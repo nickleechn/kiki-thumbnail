@@ -83,6 +83,13 @@ Reference: `WPoKkr_WED8.jpg`
 - When a real setting is essential, reduce its saturation, detail, and contrast so it reads as context rather than a second focal point.
 - Let the subject, headline, and single accent create contrast. Do not add decorative props or icons merely to fill empty space.
 
+## Typography rules
+
+- Use the bundled Google Sans Flex ExtraBold for the default modern, clean headline style.
+- Use the bundled Newsreader ExtraBold for editorial statements and serious warnings.
+- Use one typeface per thumbnail. Create emphasis with scale, placement, or one color highlight rather than mixing families.
+- Treat these bundled files as Latin fonts; let the renderer choose a compatible system font for Chinese, Japanese, or Korean text.
+
 ## Platform pair and finish
 
 - YouTube canvas: 1280×720, 16:9.

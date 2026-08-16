@@ -37,7 +37,7 @@ Create a platform-ready thumbnail pair that communicates one idea at a glance. U
    - Run `scripts/process_variants.py` with the generated base.
    - Produce YouTube at 1280×720 (16:9 landscape) and Rednote at 1080×1440 (3:4 portrait).
    - Use separate Rednote crop focus or text layout overrides when the portrait frame would clip the subject or headline. Default Rednote text to the top region.
-   - Use sans-serif type by default. Use serif only for an editorial or warning concept.
+   - Use the bundled `font/GoogleSansFlex-ExtraBold.ttf` by default. Use `font/Newsreader-ExtraBold.ttf` only for an editorial or warning concept.
    - Highlight no more than one key word unless the user requests otherwise.
 7. Inspect both final images with `view_image`.
    - Check spelling verbatim.
@@ -88,7 +88,7 @@ This command must create `output/my-video-youtube.png` and `output/my-video-redn
 
 The processor stages and dimension-checks both files before publishing the pair. It refuses to replace existing outputs unless `--overwrite` is supplied.
 
-The renderer automatically selects an available CJK font when a headline contains Chinese, Japanese, or Korean characters. Pass `--font /path/to/font.ttf` only when a specific brand font is required.
+The renderer automatically uses the bundled Google Sans Flex ExtraBold for Latin sans-serif headlines and Newsreader ExtraBold for Latin serif headlines. It selects an available CJK system font when a headline contains Chinese, Japanese, or Korean characters. Pass `--font /path/to/font.ttf` only when a specific brand font is required. The bundled fonts and their SIL Open Font License are stored in `font/`.
 
 ## Output rules
 

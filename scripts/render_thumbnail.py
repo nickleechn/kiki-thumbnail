@@ -20,14 +20,17 @@ PRESETS = {
     "youtube": (1280, 720),
     "rednote": (1080, 1440),
 }
+FONT_DIR = Path(__file__).resolve().parent.parent / "font"
 FONT_CANDIDATES = {
     "sans": [
+        str(FONT_DIR / "GoogleSansFlex-ExtraBold.ttf"),
         "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
         "/System/Library/Fonts/Supplemental/Arial.ttf",
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
         "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf",
     ],
     "serif": [
+        str(FONT_DIR / "Newsreader-ExtraBold.ttf"),
         "/System/Library/Fonts/Supplemental/Georgia Bold.ttf",
         "/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf",
         "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",

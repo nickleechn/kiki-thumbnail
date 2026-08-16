@@ -6,9 +6,10 @@ Use the images beside this file as compositional references. Borrow their visual
 
 - Communicate one idea in under a second.
 - Use one dominant human face, body, or held object.
-- Limit the hook to 2–6 words in very large type.
+- Limit the hook to 2–5 words in very large type; prefer 2–4 words. For Chinese, target 4–10 Chinese characters.
 - Balance the subject and headline across the frame; avoid filling every region.
-- Prefer a controlled or simplified background with strong subject separation.
+- Make the background color minimalistic: one calm base color or two closely related tones, plus one optional accent.
+- Prefer a solid neutral, soft tonal gradient, or heavily muted contextual environment with strong subject separation.
 - Use white, black, or deep navy type plus one accent color.
 - Use only one markup device: an arrow, underline, circle, check, or word box.
 - Keep the lower-right corner low priority because YouTube overlays the duration there.
@@ -31,7 +32,7 @@ References: `IMG_4883.png`, `IMG_4060.png`
 Reference: `IMG_0324.png`
 
 - Put the presenter on one side holding the hero object near the center.
-- Repeat or softly blur related objects in the background to establish abundance or proof.
+- If proof objects are necessary, use a small, softly blurred group in one area rather than filling the background.
 - Use a short conversational hook and a simple arrow aimed at the hero object.
 - Keep the object large enough to understand at phone size.
 
@@ -66,11 +67,21 @@ Reference: `WPoKkr_WED8.jpg`
 ## Headline rules
 
 - Write the thumbnail hook after understanding the video's actual payoff.
+- Draft three hooks, then choose the shortest truthful option that creates the strongest curiosity, benefit, warning, or opinion.
+- Use 2–5 words and prefer 2–4. For Chinese, target 4–10 Chinese characters.
 - Prefer tension and specificity: `NEVER DO THIS`, `REACT TO NOTHING`, `STARTED SOONER`.
-- Avoid vague filler such as `MY NEW VIDEO`, `YOU NEED THIS`, or a full sentence copied from the title.
+- Avoid vague filler such as `MY NEW VIDEO`, `YOU NEED THIS`, conjunction-heavy copy, subtitles, or a full sentence copied from the title.
 - Put the strongest word first or isolate it with the accent color.
 - Keep punctuation minimal. One period can make an opinion feel deliberate.
 - Render text after image generation so spelling stays exact.
+
+## Background color rules
+
+- Start with one restrained base: off-white, light gray, warm beige, muted pastel, deep navy, or charcoal.
+- Use no more than two closely related base tones and one optional accent color across the thumbnail.
+- A solid field or very soft tonal gradient is the default. Never use rainbow gradients, busy patterns, or multiple unrelated bright color blocks.
+- When a real setting is essential, reduce its saturation, detail, and contrast so it reads as context rather than a second focal point.
+- Let the subject, headline, and single accent create contrast. Do not add decorative props or icons merely to fill empty space.
 
 ## Platform pair and finish
 

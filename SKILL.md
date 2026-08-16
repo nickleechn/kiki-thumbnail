@@ -1,6 +1,6 @@
 ---
 name: kiki-thumbnail
-description: "Create polished, high-impact thumbnail pairs in the Kiki reference style: a dominant human or object, short curiosity-driven headline, strong contrast, and restrained arrows or word highlights. Use when Codex needs to design, generate, revise, or export thumbnails for YouTube and Rednote; produce deterministic 16:9 landscape and 3:4 portrait variants from one generated master; turn a video title, script, or concept into thumbnail options; incorporate a presenter photo; or match the visual language in this skill's reference images."
+description: "Create polished, high-impact thumbnail pairs in the Kiki reference style: a dominant human or object, a lean attention-grabbing headline, a minimal low-detail background, strong contrast, and restrained arrows or word highlights. Use when Codex needs to design, generate, revise, or export thumbnails for YouTube and Rednote; produce deterministic 16:9 landscape and 3:4 portrait variants from one generated master; turn a video title, script, or concept into thumbnail options; incorporate a presenter photo; or match the visual language in this skill's reference images."
 ---
 
 # Kiki Thumbnail
@@ -17,11 +17,14 @@ Create a platform-ready thumbnail pair that communicates one idea at a glance. U
    - Choose references by composition, not by the identity of their subjects.
    - Never copy a reference pixel-for-pixel or reuse its people, logos, characters, or headline.
 3. Define one visual promise.
-   - Write a 2–6 word hook that complements rather than repeats the video title.
-   - Prefer a concrete benefit, warning, opinion, or curiosity gap.
+   - Draft three hooks, each 2–5 words, and prefer 2–4 words when the meaning stays clear. For Chinese, target 4–10 Chinese characters.
+   - Select the shortest truthful option with the strongest concrete benefit, warning, opinion, or curiosity gap.
+   - Make the hook complement rather than repeat the video title. Do not use a full sentence, subtitle, or filler words.
    - Keep the promise truthful to the video.
 4. Pick one layout recipe from `reference/style-guide.md`.
    - Use one dominant subject or object.
+   - Use a minimal background: one calm base color or two closely related tones, with one optional accent color.
+   - Prefer a solid neutral, a very soft tonal gradient, or a heavily muted contextual environment. Keep background detail and contrast low.
    - Reserve a clean text zone and keep the lower-right corner visually quiet for YouTube's duration badge.
    - Use at most one emphasis device: arrow, underline, circle, or highlighted word.
 5. Generate the base art with the built-in `image_gen` tool.
@@ -52,14 +55,15 @@ Use case: ads-marketing
 Asset type: cross-platform thumbnail master image
 Primary request: <single visual idea tied to the video>
 Input images: <Image 1: presenter identity reference; Image 2..N: composition/style references>
-Scene/backdrop: <simple setting or controlled background>
+Scene/backdrop: <minimal low-detail field: solid neutral, soft monochrome gradient, or heavily muted contextual environment>
 Subject: <one dominant person or object, expression/pose/action>
 Style/medium: polished photorealistic editorial thumbnail
 Composition/framing: square or near-square master safe for both 16:9 landscape and 3:4 portrait crops; essential subject and gesture inside central 45%; generous background on every side; clean negative space around the subject; bold silhouette
 Lighting/mood: bright subject separation, believable skin and material texture
-Color palette: restrained neutrals plus one accent color
+Background color: one calm neutral base or two closely related tones; optional single accent only
+Color palette: maximum two related base colors plus one accent color
 Constraints: no text, letters, captions, logos, watermark, border, or duration badge; do not reproduce reference identities or copyrighted characters; keep anatomy natural
-Avoid: clutter, tiny props, generic stock-photo staging, exaggerated HDR, excessive glow
+Avoid: busy or multicolor backgrounds, rainbow gradients, repeated patterns, decorative clutter, tiny props, generic stock-photo staging, exaggerated HDR, excessive glow
 ```
 
 ## Deterministic two-variant processor
@@ -89,6 +93,8 @@ The renderer automatically selects an available CJK font when a headline contain
 ## Output rules
 
 - Always export two files from every generation: YouTube at exactly 1280×720 and Rednote at exactly 1080×1440.
+- Keep the headline to 2–5 words and prefer 2–4; for Chinese, target 4–10 Chinese characters.
+- Keep the background minimal: at most two closely related base tones plus one optional accent, with no busy pattern or unrelated bright color blocks.
 - Keep essential content at least 48 px from the edges.
 - Treat the two aspect ratios as one thumbnail pair, not as optional creative variants.
 - Do not bake a duration badge into the image; YouTube adds it in the interface.

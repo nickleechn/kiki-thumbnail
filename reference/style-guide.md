@@ -13,6 +13,7 @@ Use the images beside this file as compositional references. Borrow their visual
 - Use white, black, or deep navy type plus one accent color.
 - Prefer a subtle depth overlap: place part of the headline behind a shoulder, arm, hand, or hair edge when the words remain immediately readable.
 - Use only one markup device: an arrow, underline, circle, check, or word box.
+- Treat anything the subject points at, holds, presents, or looks toward as essential content, not background detail.
 - Keep the lower-right corner low priority because YouTube overlays the duration there.
 - Do not include a duration badge in generated output.
 
@@ -100,12 +101,21 @@ Reference: `WPoKkr_WED8.jpg`
 - Build the effect with an aligned transparent presenter layer and the renderer's `--foreground` option. Do not bake uncertain AI-generated lettering into the scene.
 - Keep the entire head and hair outline visible. Any crop through the top or sides of the head is a failed composition.
 
+## Gesture and hero-object integrity
+
+- Preserve the complete visual relationship between a pointing hand, directed gaze, or presenting pose and its target.
+- Keep a targeted book, product, tool, screen, food item, or other object recognizable at phone size. Retain its silhouette, material, orientation, and meaningful visible details.
+- Do not blur, flatten, abstract, substitute, crop out, or hide a gesture-targeted object in the name of minimalism.
+- Simplify only unrelated surroundings. The person, gesture, and target together form the primary focal group.
+- If the target contains user-supplied cover art, packaging, or other exact visual details, use the supplied image as a reference or deterministic overlay rather than asking image generation to recreate it from memory.
+- Check both platform crops independently so the pointing direction still lands on the same visible object.
+
 ## Platform pair and finish
 
 - YouTube canvas: 1280×720, 16:9.
 - Rednote canvas: 1080×1440, portrait 3:4.
 - Generate one loose square or near-square master, then crop and typeset each platform deterministically with `scripts/process_variants.py`.
-- Keep faces, hands, hero objects, and gestures inside the master image's central 45% with usable background on every side so the landscape and portrait crops preserve the idea.
+- Keep faces, hands, hero objects, gestures, and their targets inside the master image's central 45% with usable background on every side so the landscape and portrait crops preserve the idea.
 - Keep at least 8% of the master height above the person's hair and verify the full head outline independently in both final crops.
 - Default the Rednote headline to the top region. Allow a different headline, position, or crop focus for the portrait version; do not stretch or letterbox the image.
 - Edge safety: 48 px minimum.

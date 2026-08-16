@@ -26,6 +26,7 @@ Create a platform-ready thumbnail pair that communicates one idea at a glance. U
    - Select one named palette from `reference/colour-palettes.md`. Use one calm base, one dark ink, and one optional muted accent.
    - Prefer a solid neutral, a very soft tonal gradient, or a heavily muted contextual environment. Keep background detail and contrast low.
    - Reserve a clean text zone and keep the lower-right corner visually quiet for YouTube's duration badge.
+   - Treat anything the subject points at, holds up, presents, or looks toward as a hero object. Preserve its recognizable shape, cover, material, and important identifying details; simplify only the nonessential surroundings.
    - Prefer a depth overlap when a presenter is prominent: let a shoulder, arm, hand, or edge of the hair sit in front of part of the headline while the text stays readable.
    - Use at most one emphasis device: arrow, underline, circle, or highlighted word.
 5. Generate the base art with the built-in `image_gen` tool.
@@ -33,8 +34,8 @@ Create a platform-ready thumbnail pair that communicates one idea at a glance. U
    - Label every input image by role. Use the presenter photo as an identity reference and the selected thumbnails only as style/composition references.
    - Ask for one square or near-square master composition that is safe for both a 16:9 landscape crop and a 3:4 portrait crop. Keep the subject, face, hero object, and gesture inside the central 45% of the frame with generous background on every side.
    - Keep the entire head, hair outline, ears, and chin inside the crop-safe region with at least 8% of the master height as breathing room above the hair.
-   - Request no words, letters, captions, logos, watermarks, borders, or duration badge in the generated base.
-   - Keep skin, hands, food, and products believable. Avoid plastic retouching and overstuffed collage layouts.
+   - Request no generated headline, captions, unrelated lettering, watermarks, borders, or duration badge in the base. Preserve user-supplied visual details on a gesture-targeted object through a labeled reference or deterministic overlay.
+   - Keep skin, hands, food, products, and gesture-targeted objects believable. Preserve the visual line between a pointing hand or gaze and its target. Avoid plastic retouching and overstuffed collage layouts.
 6. Add the exact headline and always export both platform variants.
    - Run `scripts/process_variants.py` with the generated base.
    - Produce YouTube at 1280×720 (16:9 landscape) and Rednote at 1080×1440 (3:4 portrait).
@@ -58,16 +59,16 @@ Use this structure and omit unused lines:
 Use case: ads-marketing
 Asset type: cross-platform thumbnail master image
 Primary request: <single visual idea tied to the video>
-Input images: <Image 1: presenter identity reference; Image 2..N: composition/style references>
+Input images: <Image 1: presenter identity reference; Image 2: hero-object detail reference when supplied; remaining images: composition/style references>
 Scene/backdrop: <minimal low-detail field: solid neutral, soft monochrome gradient, or heavily muted contextual environment>
-Subject: <one dominant person or object, expression/pose/action>
+Subject: <one dominant person or object, expression/pose/action; describe any object being pointed at or presented with enough detail to keep it recognizable>
 Style/medium: polished photorealistic editorial thumbnail
 Composition/framing: square or near-square master safe for both 16:9 landscape and 3:4 portrait crops; essential subject and gesture inside central 45%; entire head, hair outline, ears, and chin visible; at least 8% master-height breathing room above the hair; generous background on every side; clean negative space around the subject; bold silhouette; allow a shoulder, hand, or hair edge to overlap the future headline zone
 Lighting/mood: bright subject separation, believable skin and material texture
 Background color: one calm neutral base or two closely related tones; optional single accent only
 Color palette: <named palette from reference/colour-palettes.md; one light base, one dark ink, one optional muted accent>
-Constraints: no text, letters, captions, logos, watermark, border, or duration badge; do not reproduce reference identities or copyrighted characters; keep anatomy natural
-Avoid: busy or multicolor backgrounds, rainbow gradients, repeated patterns, decorative clutter, tiny props, generic stock-photo staging, exaggerated HDR, excessive glow
+Constraints: no generated headline, captions, watermark, border, or duration badge; do not reproduce reference identities or copyrighted characters; keep anatomy natural; preserve the form, material, and meaningful details of any object the subject points at, holds, presents, or looks toward
+Avoid: simplifying or abstracting a gesture-targeted object; busy or multicolor backgrounds, rainbow gradients, repeated patterns, decorative clutter, tiny unrelated props, generic stock-photo staging, exaggerated HDR, excessive glow
 ```
 
 ## Deterministic two-variant processor
@@ -102,6 +103,7 @@ The renderer automatically uses the bundled Google Sans Flex ExtraBold for Latin
 - Always export two files from every generation: YouTube at exactly 1280×720 and Rednote at exactly 1080×1440.
 - Keep the headline to 2–5 words and prefer 2–4; for Chinese, target 4–10 Chinese characters.
 - Keep the background minimal: at most two closely related base tones plus one optional accent, with no busy pattern or unrelated bright color blocks.
+- Never simplify, blur away, crop out, or replace an object that the subject points at, holds, presents, or looks toward. Keep the gesture and target readable as one visual idea.
 - Prefer text-behind-person depth when it improves the composition, but preserve instant word recognition.
 - Keep essential content at least 48 px from the edges.
 - Never clip the top or sides of a person's head or hair. Use `--focus-y` and `--rednote-focus-y` independently when needed.

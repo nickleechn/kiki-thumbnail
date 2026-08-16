@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Kiki safe-area overlay — import into Figma</title>
+  <!-- Master background -->
+  <rect x="0" y="0" width="1024" height="1024" fill="#F4ECE1" stroke="#222529" stroke-width="4"/>
+  <!-- 48px edge safety (~4.7% at 1024) -->
+  <rect x="48" y="48" width="928" height="928" fill="none" stroke="#E53935" stroke-width="3" stroke-dasharray="12 8"/>
+  <text x="52" y="72" font-family="sans-serif" font-size="16" fill="#E53935">48px edge safety</text>
+  <!-- 8% headroom guide -->
+  <rect x="48" y="48" width="928" height="82" fill="#222529" fill-opacity="0.06"/>
+  <text x="512" y="96" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#222529" opacity="0.7">8% headroom — keep hair below this</text>
+  <!-- central 45% (281px margin each side at 1024 -> 462px central) -->
+  <rect x="281" y="281" width="462" height="462" fill="none" stroke="#222529" stroke-width="2.5"/>
+  <text x="512" y="512" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#222529">central 45%</text>
+  <text x="512" y="532" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#222529" opacity="0.7">face / hero object / gesture must stay inside</text>
+  <!-- lower-right quiet zone -->
+  <rect x="780" y="820" width="196" height="156" fill="#111111" fill-opacity="0.08" stroke="#111111" stroke-width="1.5" stroke-dasharray="6 6"/>
+  <text x="878" y="900" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#111111" opacity="0.6">lower-right quiet</text>
+  <text x="878" y="914" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#111111" opacity="0.6">YouTube badge</text>
+  <!-- presets hint -->
+  <text x="512" y="1008" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#222529" opacity="0.6">YouTube 16:9 → 1280×720 | Rednote 3:4 → 1080×1440</text>
+</svg>

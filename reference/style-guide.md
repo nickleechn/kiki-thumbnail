@@ -91,7 +91,10 @@ Reference: `WPoKkr_WED8.jpg`
 - Use the bundled Google Sans Flex ExtraBold for the default modern, clean headline style.
 - Use the bundled Newsreader ExtraBold for editorial statements and serious warnings.
 - Use one typeface per thumbnail. Create emphasis with scale, placement, or one color highlight rather than mixing families.
-- Treat these bundled files as Latin fonts; let the renderer choose a compatible system font for Chinese, Japanese, or Korean text.
+- **CJK fallback (renderer supports it):** when the headline contains Chinese/Japanese/Korean, `scripts/render_thumbnail.py` automatically prefers:
+  - Sans: `STHeiti Medium.ttc` → `Hiragino Sans GB.ttc` → `NotoSansCJK-Bold.ttc`
+  - Serif: `Songti.ttc` → `NotoSerifCJK-Bold.ttc`
+  - If no CJK font is found locally, pass an explicit `--font /path/to/NotoSansSC-Bold.otf`. For CJK, use weight ≥ 700, line-height 1.1–1.2, letter-spacing −1% to −2%, and keep punctuation minimal.
 
 ## Subject and text depth
 
@@ -124,6 +127,43 @@ Reference: `WPoKkr_WED8.jpg`
 - Contrast: use a directional dark overlay behind light text when the photo is busy.
 - Retouching: keep real skin texture, believable hands, and natural fabric or food detail.
 - Final check: zoom out to approximately 128×72. The subject and hook should still read instantly.
+
+## Safe-area & cropping diagram
+
+```
+Master (square ~1024×1024, safe for both crops)
+┌──────────────────────────────────────┐
+│  8% headroom above hair              │
+│  ┌──────────────────────────────┐    │
+│  │  48px edge safety (all sides)│    │
+│  │  ┌──────────────────────┐    │    │
+│  │  │ central 45%          │    │    │
+│  │  │ face / hero object / │    │    │
+│  │  │ gesture must stay    │    │    │
+│  │  │ inside here + bg     │    │    │
+│  │  │ on every side        │    │    │
+│  │  └──────────────────────┘    │    │
+│  └──────────────────────────────┘    │
+│         lower-right quiet (YouTube badge) │
+└──────────────────────────────────────┘
+YouTube 16:9  → 1280×720  (focus-x/y controls crop)
+Rednote 3:4   → 1080×1440 (default top layout; use --rednote-focus-x/y if needed)
+```
+- Keep at least **8% master height** above the hair and verify the full head outline in *both* crops.
+- See `reference/safe-area-template.svg` for an overlay you can import into Figma.
+
+## Deterministic processing
+
+- Generate one loose master, then run:
+  ```bash
+  python scripts/process_variants.py \
+    --input master.png --output-dir out --stem my-video \
+    --text "NEVER DO THIS" --highlight "NEVER" --layout left \
+    --rednote-text "STOP DOING THIS" --rednote-layout top \
+    --font-style sans --overlay 0.42 --focus-x 0.5 --focus-y 0.5
+  ```
+- For subject-over-text depth, pass an aligned transparent cutout: `--foreground cutout.png` (placed *above* text by the renderer).
+- Verify with: `python scripts/lint_headline.py --text "NEVER DO THIS"` and by opening both outputs with `view_image` at ~10% scale.
 
 ## Reference index
 

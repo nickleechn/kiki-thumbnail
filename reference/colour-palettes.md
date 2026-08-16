@@ -68,6 +68,29 @@ Gentle, creative, and contemporary. Use for personal stories, beauty, design, em
 
 Reference swatches: `#909AAD`, `#C9C1D2`, `#EBD4D7`, `#FBEBF9`, `#DFE2FD`.
 
+## Midnight Ink
+
+High-contrast, low-light editorial. Use for urgent warnings, night scenes, authority statements, and serious explainers where light palettes wash out.
+
+| Role | Recommended colour |
+| --- | --- |
+| Base | `#0F1419` |
+| Alternate base | `#1A222C` |
+| Supporting tone | `#2A3441` |
+| Muted accent | `#8A9BB0` |
+| Dark ink | `#F0F2F5` |
+| Accent highlight | `#E53935` |
+
+Reference swatches: `#0F1419`, `#1A222C`, `#2A3441`, `#3A4A5E`, `#8A9BB0`, `#F0F2F5`, `#E53935`.
+
+> When using Midnight Ink, place light ink `#F0F2F5` over the dark base — do not place `#222529` over `#0F1419`.
+
+## Contrast & accessibility
+
+- Aim for **WCAG AA ≥ 4.5:1** for headline text. Check quickly: `python scripts/lint_headline.py --check-contrast "#F0F2F5" "#0F1419"` (or use WebAIM contrast checker).
+- If a sampled background is mid-tone (~`#6E757C`–`#909AAD`), add the directional dark overlay (`--overlay 0.42` default) or switch ink to `#FFFFFF` with `#111111` stroke.
+- Keep the single accent below ~10% of pixels; never rely on color alone to convey meaning — pair it with scale or placement.
+
 ## Prompt language
 
 Describe the chosen palette by name and hex role values. Add: `muted, low-chroma, minimalist colour treatment; no neon tones; no unrelated bright colour blocks`.
